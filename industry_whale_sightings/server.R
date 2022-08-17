@@ -33,9 +33,20 @@ shinyServer(function(input, output) {
   output$map <- renderLeaflet({
     leaflet(sightings_data) %>% 
       addTiles() %>%
+      ### need to add data here!!! 
       addLayersControl(
         overlayGroups = c("blocks","vessels","nms","bia", "phones")
       )
   })
+  
+  #ceate a data object to display data
+  
+  output$data <-DT::renderDataTable(datatable(
+    sightings_data[,c(-1,-23,-24,-25,-28:-35)],filter = 'top',
+    colnames = c("Blood Bank Name", "State", "District", "City", "Address", "Pincode","Contact No.",
+                 "Mobile","HelpLine","Fax","Email", "Website","Nodal Officer", "Contact of Nodal Officer",
+                 "Mobile of Nodal Officer", "Email of Nodal Officer","Qualification", "Category", "Blood Component Available",
+                 "Apheresis", "Service Time", "Lat", "Long.")
+  ))
 
 })
