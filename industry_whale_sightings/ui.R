@@ -27,6 +27,6 @@ shinyUI(fluidPage(theme = shinytheme("spacelab"),
     navbarPage("Maritime Shipping Whale Sightings", id="main",
                tabPanel("Map", leafletOutput("map", height=1000)),
                tabPanel("Data", DT::dataTableOutput("data")),
-               tabPanel("About",includeMarkdown("readme.md")))
+               tabPanel("About",includeMarkdown("README.md")))
 )
 )

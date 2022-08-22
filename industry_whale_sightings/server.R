@@ -23,20 +23,21 @@ shinyServer(function(input, output) {
   
   # Load data
   sightings_data <- read_csv(here("data","IndustrySightings_aggregate.csv")) %>% 
-    clean_names() %>% 
-    st_as_sf(coords = c("long", "lat"))
+    clean_names() #%>% 
+    #st_as_sf(coords = c("long", "lat"))
   
   # Color palette
-  pal <- colorFactor(pal = c("#0C6B02", "#94026D", "#0383C2", "#A0AFB7"), domain = c("Fin", "Humpback", "Blue", "Unidentified"))
+  species_pal <- colorFactor(pal = c("#0C6B02", "#94026D", "#0383C2", "#A0AFB7"), domain = c("Fin", "Humpback", "Blue", "Unidentified"))
    
   
   output$map <- renderLeaflet({
-    leaflet(sightings_data) %>% 
+    leaflet() %>% 
       addTiles() %>%
-      ### need to add data here!!! 
-      addLayersControl(
-        overlayGroups = c("blocks","vessels","nms","bia", "phones")
-      )
+      setView( lng = -119, lat = 38, zoom = 5) %>%
+      addCircleMarkers(data = sightings_data,  ~long, ~lat, 
+                       radius = 3, 
+                       color = ~species_pal(species),
+                       stroke = FALSE, fillOpacity = 0.8)
   })
   
   #ceate a data object to display data
