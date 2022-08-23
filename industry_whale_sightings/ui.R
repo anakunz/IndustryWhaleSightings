@@ -25,7 +25,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
 
     # Application title
     navbarPage("Maritime Shipping Whale Sightings", id="main",
-               tabPanel("Map", leafletOutput("map", height=1000),
+               tabPanel("Map", leafletOutput("map", height=875),
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
                                       draggable = TRUE, top = 75, left = "auto", right = 20, bottom = "auto",
                                       width = 250, height = "auto",
