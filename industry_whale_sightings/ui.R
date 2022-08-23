@@ -37,7 +37,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                         label = "View sightings by:",
                                         selected = T,
                                         justified = TRUE, status = "primary",
-                                        choices = c("Species" = T, "Company" = F)
+                                        choices = c("Species" = F, "Company" = T)
                                       ),
                                       
                                    
