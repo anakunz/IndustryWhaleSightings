@@ -16,10 +16,10 @@ library(sp)
 library(tmap)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
-  ### Interactive Map ####
   
+  ### Interactive Map ####
   
   # Load data
   sightings_data <- read_csv(here("data","IndustrySightings_aggregate.csv")) %>% 
@@ -30,7 +30,7 @@ shinyServer(function(input, output) {
 
   company_pal <- colorFactor(pal = c("#c90076", "#c27ba0", "#6a329f", "#8e7cc3", "#16537e", "#6fa8dc", "#2986cc", "#76a5af", "#8fce00", "#38761d", "#ce7e00", "#f1c232", "#f44336", "#990000", "#744700"), domain = c("Evergreen", "K-Line", "MOL", "NYK", "MSC", "Maersk", "CMA CGM", "ONE", "Hapag Lloyd", "Matson", "Scot Gemi Isletmeciligi AS", "Eastern Pacific Shipping", "Wan Hai", "Andriaki Shipping Co", "APL"))
   
-  # begin map
+  # create basemap
   
   output$map <- renderLeaflet({
     leaflet() %>% 
@@ -43,30 +43,35 @@ shinyServer(function(input, output) {
                      #  stroke = FALSE, fillOpacity = 0.8)
   })
   
- #Create a reactive exp that returns either species or company
-view_by <- input$view_by
-
-proxy <- leafletProxy("map")
   
- observe({
-   leafletProxy("map", data = sightings_data) %>% 
-     clearMarkers()  
-   
-   proxy %>% 
-     if (input$view_by == "Species") {
-       addCircleMarkers(data = sightings_data, ~long, ~lat,
-                        color = ~species_pal(species),
-                        radius = ~num_sighted, 
-                        stroke = FALSE, fillOpacity = 0.8) 
-       }
-   else (input$view_by == "Company") {
-     addCircleMarkers(data = sightings_data, ~long, ~lat,
-                      color = ~company_pal(company),
-                      radius = ~num_sighted, 
-                      stroke = FALSE, fillOpacity = 0.8) 
-     }
-   }) 
- })
+ #Create a reactive exp that returns either species or company
+
+  
+  observe({
+    leafletProxy("map", data = sightings_data) %>% 
+      clearMarkers()
+    
+    proxy <- leafletProxy("map")
+    
+    view_by <- input$view_by
+    
+      if (view_by){
+        view_by <- "Company"
+        proxy %>%
+          addCircleMarkers(data = sightings_data, ~long, ~lat,
+                           color = ~company_pal(company),
+                           radius = ~num_sighted, 
+                           stroke = FALSE, fillOpacity = 0.8)
+        } else {
+          view_by <- "Species"
+          proxy %>% 
+            addCircleMarkers(data = sightings_data, ~long, ~lat,
+                             color = ~species_pal(species),
+                             radius = ~num_sighted, 
+                             stroke = FALSE, fillOpacity = 0.8)
+          }
+    })
+  })
 
 
 #ceate a data object to display data --- NEED TO CHANGE FOR DATA PAGE this goes above the }) right above this
