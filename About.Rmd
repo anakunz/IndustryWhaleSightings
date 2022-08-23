@@ -1,7 +1,6 @@
 ---
 title: "About"
-author: "Anastasia Kunz"
-date: '2022-08-17'
+runtime: shiny
 output: html_document
 ---
 

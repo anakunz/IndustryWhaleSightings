@@ -44,7 +44,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                       
                         )),
                tabPanel("Data", DT::dataTableOutput("data"))
-              # tabPanel("About",includeMarkdown("README.md"))
+               #tabPanel("About",includeMarkdown("README.md"))
               )
 )
 )

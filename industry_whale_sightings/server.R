@@ -1,11 +1,5 @@
 #
-# This is the server logic of a Shiny web application. You can run the
-# application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
+# Shiny Server Page
 
 library(shiny)
 library(tidyverse)
@@ -15,7 +9,7 @@ library(sf)
 library(sp)
 library(tmap)
 
-# Define server logic required to draw a histogram
+# Define server logic 
 shinyServer(function(input, output, session) {
 
   
@@ -28,12 +22,12 @@ shinyServer(function(input, output, session) {
   mbnms <- read_sf(here( "data", "mbnms_py2", "mbnms_py.shp"))
   ship_lanes <- read_sf(here("data", "shipping_lanes", "Offshore_Traffic_Separation.shp"))
   
-  # Create color palette
+  # Create color palettes for each data view
   species_pal <- colorFactor(pal = c("#0C6B02", "#94026D", "#00637C", "#63666A"), domain = c("Fin", "Humpback", "Blue", "Unidentified"))
 
   company_pal <- colorFactor(pal = c("#c90076", "#c27ba0", "#6a329f", "#8e7cc3", "#16537e", "#6fa8dc", "#2986cc", "#76a5af", "#8fce00", "#38761d", "#ce7e00", "#f1c232", "#f44336", "#990000", "#744700"), domain = c("Evergreen", "K-Line", "MOL", "NYK", "MSC", "Maersk", "CMA CGM", "ONE", "Hapag Lloyd", "Matson", "Scot Gemi Isletmeciligi AS", "Eastern Pacific Shipping", "Wan Hai", "Andriaki Shipping Co", "APL"))
   
-  # create basemap
+  # Create basemap
   
   output$map <- renderLeaflet({
     leaflet() %>% 
@@ -41,7 +35,7 @@ shinyServer(function(input, output, session) {
       setView( lng = -119, lat = 38, zoom = 5) %>% 
       addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "aquamarine") %>%
       addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "chartreuse") %>%
-      addPolygons(data = ship_lanes, group = "Shipping Lanes", fillColor = "teal") %>%
+      addPolygons(data = ship_lanes, group = "Shipping Lanes", fillColor = "light teal") %>%
       hideGroup("National Marine Sanctuaries") %>% hideGroup("Shipping Lanes") %>% 
       addLayersControl(
         overlayGroups = c("National Marine Sanctuaries", "Shipping Lanes")
@@ -50,7 +44,7 @@ shinyServer(function(input, output, session) {
   })
   
   
- #Create a reactive exp that returns either species or company
+ #Create a reactive expression that returns either species or company view options
 
   
   observe({
@@ -77,6 +71,7 @@ shinyServer(function(input, output, session) {
                              stroke = FALSE, fillOpacity = 0.8)
           }
     })
+  
   })
 
 
