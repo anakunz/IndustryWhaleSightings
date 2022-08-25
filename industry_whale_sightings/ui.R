@@ -18,7 +18,8 @@ library(sf)
 library(sp)
 library(shinyWidgets)
 
-
+sightings_data <- read_csv(here("data","IndustrySightings_aggregate.csv")) %>% 
+  clean_names()
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(theme = shinytheme("flatly"),
@@ -27,8 +28,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
     navbarPage("Maritime Shipping Whale Sightings", id="main",
                tabPanel("Map", leafletOutput("map", height=875),
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                      draggable = TRUE, top = 75, left = "auto", right = 20, bottom = "auto",
-                                      width = 250, height = "auto",
+                                      draggable = TRUE, top = 80, left = "auto", right = 30, bottom = "auto",
+                                      width = 275, height = "auto",
                                       
                                       h2("Data explorer"),
                                       
@@ -39,6 +40,21 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                         justified = TRUE, status = "primary",
                                         choices = c("Species" = F, "Company" = T)
                                       ),
+                                      
+                                      
+                                      selectInput("co_select", "Filter by Company:",
+                                                  choices = unique(sightings_data$company),
+                                                  selectize = FALSE,
+                                                  selected = c(sightings_data$company),
+                                                  multiple = TRUE),
+                                      
+                                      selectInput("sp_select", "Filter by Species:",
+                                                  choices = unique(sightings_data$species),
+                                                  selectize = FALSE,
+                                                  selected = c(sightings_data$species),
+                                                  multiple = TRUE),
+                                    
+                                     
                                       
                                    
                                       
