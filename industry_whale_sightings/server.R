@@ -9,6 +9,7 @@ library(sf)
 library(sp)
 library(tmap)
 library(DT)
+library(data.table)
 
 # Define server logic 
 shinyServer(function(input, output, session) {
@@ -39,11 +40,13 @@ shinyServer(function(input, output, session) {
 
   company_pal <- colorFactor(pal = c("#c90076", "#c27ba0", "#6a329f", "#8e7cc3", "#16537e", "#6fa8dc", "#2986cc", "#76a5af", "#8fce00", "#38761d", "#ce7e00", "#f1c232", "#f44336", "#990000", "#744700"), domain = c("Evergreen", "K-Line", "MOL", "NYK", "MSC", "Maersk", "CMA CGM", "ONE", "Hapag Lloyd", "Matson", "Scot Gemi Isletmeciligi AS", "Eastern Pacific Shipping", "Wan Hai", "Andriaki Shipping Co", "APL"))
   
-
+# Reactivity expression for company, species, and year selection
+  
   spco_reactive <- reactive({ 
     sightings_data %>%
       filter(company %in% c(input$co_select)) %>% 
-      filter(species %in% c(input$sp_select))
+      filter(species %in% c(input$sp_select)) %>% 
+      filter(year %inrange% c(input$years))
   })
   
   # Create basemap
@@ -96,7 +99,9 @@ shinyServer(function(input, output, session) {
   
   output$data <-DT::renderDataTable(datatable(
     sightings_data[,c(1,3,4,5,6, 7,8,12)],filter = 'top',
-    colnames = c("Date", "Company", "Vessel", "Vessel Type", "Data Collector", "Species","Number Sited", "Notes")
+    colnames = c("Date", "Company", "Vessel", "Vessel Type", "Data Collector", "Species","Number Sited", "Notes"),
+    style = "auto",
+    rownames = TRUE
   ))
   
   })

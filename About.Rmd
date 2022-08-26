@@ -5,11 +5,11 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## THIS IS THE ABOUT PAGE I THINK
+## THIS IS THE ABOUT PAGE 
 
-Info about the shipping industry involvement in whale sighings and the vsr program
+Can put info + images?
 
 

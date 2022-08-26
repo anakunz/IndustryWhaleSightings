@@ -36,13 +36,21 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                "),
 
     # Application title
-    navbarPage("Maritime Shipping Whale Sightings", id="main",
+    navbarPage("Maritime Shipping Whale Sightings", id="nav",
                tabPanel("Map", leafletOutput("map", height=875),
+                        div(class="outer",
+                            
+                            tags$head(
+                              # Include our custom CSS
+                              tags$link(rel = "stylesheet", type = "text/css", href = "/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/styles.css"),
+                              includeCSS("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/styles.css")
+                            ),
+                            
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
-                                      draggable = TRUE, top = 80, left = "auto", right = 30, bottom = "auto",
-                                      width = 275, height = "auto",
+                                      draggable = TRUE, top = 95, left = "auto", right = 40, bottom = "auto",
+                                      width = 280, height = "auto",
                                       
-                                      h2("Data explorer"),
+                                      h2("  Data explorer"),
                                       
                                       radioGroupButtons(
                                         inputId = "view_by",
@@ -53,25 +61,29 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                       ),
                                       
                                       
-                                      selectInput("co_select", "Filter by Company:",
-                                                  choices = unique(sightings_data$company),
-                                                  selectize = FALSE,
-                                                  selected = c(sightings_data$company),
-                                                  multiple = TRUE),
+                                      fluidRow(column(6, offset = 0,
+                                                      checkboxGroupInput("co_select", "Select Company:",
+                                                                         choices = unique(sightings_data$company),
+                                                                         #selectize = FALSE,
+                                                                         selected = c(sightings_data$company))), #multiple = TRUE),
+                                               column(6, offset = 0,
+                                                      checkboxGroupInput("sp_select", "Select Species:",
+                                                                  choices = unique(sightings_data$species),
+                                                                  #selectize = FALSE,
+                                                                  selected = c(sightings_data$species)))),
+                                                                  #multiple = TRUE),
                                       
-                                      selectInput("sp_select", "Filter by Species:",
-                                                  choices = unique(sightings_data$species),
-                                                  selectize = FALSE,
-                                                  selected = c(sightings_data$species),
-                                                  multiple = TRUE),
+                                      sliderInput("years", "Year",
+                                                  min = 2018, max = 2022, step = 1,
+                                                  value = c(2018,2022), sep = ""),
                                     
                                      
                                       
                                    
                                       
-                        )),
-               tabPanel("Data", DT::dataTableOutput("data"))
-               #tabPanel("About",includeMarkdown("README.md"))
-              )
+                        ))),
+               tabPanel("Data", DT::dataTableOutput("data")),
+               tabPanel("About",includeMarkdown("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/About.Rmd"))
+              
 )
-)
+))
