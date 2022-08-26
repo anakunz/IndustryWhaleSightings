@@ -18,11 +18,22 @@ library(sf)
 library(sp)
 library(shinyWidgets)
 
-sightings_data <- read_csv(here("data","IndustrySightings_aggregate.csv")) %>% 
+sightings_data <- read_csv(here("data","IndustrySightings_vsr.csv")) %>% 
   clean_names()
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(theme = shinytheme("flatly"),
+       
+       #Make background transparent for panel; hover to make bold again                     
+                  tags$style("
+        #controls {
+          background-color: #FFFFFF;
+          opacity: 0.75;
+        }
+        #controls:hover{
+          opacity: 1;
+        }
+               "),
 
     # Application title
     navbarPage("Maritime Shipping Whale Sightings", id="main",

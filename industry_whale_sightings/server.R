@@ -17,7 +17,7 @@ shinyServer(function(input, output, session) {
   ### Interactive Map ####
   
   # Load data
-  sightings_data <- read_csv(here("data","IndustrySightings_aggregate.csv")) %>% 
+  sightings_data <- read_csv(here("data","IndustrySightings_vsr.csv")) %>% 
     clean_names()
   cinms <- read_sf(here( "data", "cinms_py2", "cinms_py.shp"))
   mbnms <- read_sf(here( "data", "mbnms_py2", "mbnms_py.shp"))
