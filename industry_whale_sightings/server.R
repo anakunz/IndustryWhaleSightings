@@ -22,6 +22,9 @@ shinyServer(function(input, output, session) {
     clean_names()
   cinms <- read_sf(here( "data", "cinms_py2", "cinms_py.shp"))
   mbnms <- read_sf(here( "data", "mbnms_py2", "mbnms_py.shp"))
+  cbnms <- read_sf(here( "data", "cbnms_py2", "CBNMS_py.shp"))
+  gfnms <- read_sf(here("data", "gfnms_py2", "GFNMS_py.shp"))
+  ocnms <- read_sf(here( "data", "ocnms_py2", "ocnms_py.shp"))
   ship_lanes <- read_sf(here("data", "shipping_lanes", "Offshore_Traffic_Separation.shp"))
   
   # new column for the popup label
@@ -49,15 +52,48 @@ shinyServer(function(input, output, session) {
       filter(year %inrange% c(input$years))
   })
   
+  observe({
+    
+    leafletProxy("map", data = spco_reactive) %>% 
+      clearMarkers() 
+    
+    proxy <- leafletProxy("map", data = spco_reactive)
+    
+    view_by <- input$view_by
+    
+    if (view_by){
+      view_by <- "Company"
+      proxy %>%
+        addCircleMarkers(data = spco_reactive(), ~long, ~lat,
+                         color = ~company_pal(company),
+                         radius = ~num_sighted,
+                         popup = ~as.character(cntnt),
+                         stroke = FALSE, fillOpacity = 0.8)
+    } else {
+      view_by <- "Species"
+      proxy %>% 
+        addCircleMarkers(data = spco_reactive(), ~long, ~lat,
+                         color = ~species_pal(species),
+                         radius = ~num_sighted,
+                         popup = ~as.character(cntnt),
+                         stroke = FALSE, fillOpacity = 0.8)
+    }
+    
+    
+  })
+  
   # Create basemap
   
   output$map <- renderLeaflet({   
     leaflet() %>% 
       addTiles() %>%
       setView( lng = -119, lat = 38, zoom = 5) %>% 
-      addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "aquamarine") %>%
-      addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "chartreuse") %>%
-      addPolygons(data = ship_lanes, group = "Shipping Lanes", fillColor = "light teal") %>%
+      addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
+      addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
+      addPolygons(data = ship_lanes, group = "Shipping Lanes", fillColor = "light teal", weight = 2, color = "blue") %>%
+      addPolygons(data = cbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
+      addPolygons(data = gfnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
+      addPolygons(data = ocnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       hideGroup("National Marine Sanctuaries") %>% hideGroup("Shipping Lanes") %>% 
       addLayersControl(
         overlayGroups = c("National Marine Sanctuaries", "Shipping Lanes")
@@ -67,35 +103,7 @@ shinyServer(function(input, output, session) {
   
  #Create a reactive expression that returns either species or company view options
   
-  observe({
 
-    leafletProxy("map", data = spco_reactive) %>% 
-      clearMarkers() 
-    
-    proxy <- leafletProxy("map", data = spco_reactive)
-    
-    view_by <- input$view_by
-    
-      if (view_by){
-        view_by <- "Company"
-        proxy %>%
-          addCircleMarkers(data = spco_reactive(), ~long, ~lat,
-                           color = ~company_pal(company),
-                           radius = ~num_sighted,
-                           popup = ~as.character(cntnt),
-                           stroke = FALSE, fillOpacity = 0.8)
-        } else {
-          view_by <- "Species"
-          proxy %>% 
-            addCircleMarkers(data = spco_reactive(), ~long, ~lat,
-                             color = ~species_pal(species),
-                             radius = ~num_sighted,
-                             popup = ~as.character(cntnt),
-                             stroke = FALSE, fillOpacity = 0.8)
-        }
-
-    
-    })
   
   output$data <-DT::renderDataTable(datatable(
     sightings_data[,c(1,3,4,5,6, 7,8,12)],filter = 'top',
