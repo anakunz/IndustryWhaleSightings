@@ -20,8 +20,8 @@ shinyServer(function(input, output, session) {
   # Load data
   sightings_data <- read_csv(here("data","IndustrySightings_vsr.csv")) %>% 
     clean_names()
-  #cinms <- read_sf(here( "data", "cinms_py2", "cinms_py.shp"))
-  #mbnms <- read_sf(here( "data", "mbnms_py2", "mbnms_py.shp"))
+  cinms <- read_sf(here( "data", "cinms_py2", "cinms_py.shp"))
+  mbnms <- read_sf(here( "data", "mbnms_py2", "mbnms_py.shp"))
   #cbnms <- read_sf(here( "data", "cbnms_py2", "CBNMS_py.shp"))
  # gfnms <- read_sf(here("data", "gfnms_py2", "GFNMS_py.shp"))
  # ocnms <- read_sf(here( "data", "ocnms_py2", "ocnms_py.shp"))
@@ -93,17 +93,17 @@ shinyServer(function(input, output, session) {
     leaflet() %>% 
       addTiles() %>%
       setView( lng = -119, lat = 38, zoom = 5) %>% 
-      #addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
-     # addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
+      addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
+      addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = ship_lanes, group = "Shipping Lanes", fillColor = "light teal", weight = 2, color = "blue") %>%
      # addPolygons(data = cbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
      # addPolygons(data = gfnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
      # addPolygons(data = ocnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
-     # hideGroup("National Marine Sanctuaries") %>% 
-    hideGroup("Shipping Lanes") #%>% 
-    #  addLayersControl(
-     #   overlayGroups = c("National Marine Sanctuaries", "Shipping Lanes")
-      #)
+      hideGroup("National Marine Sanctuaries") %>% 
+    hideGroup("Shipping Lanes") %>% 
+      addLayersControl(
+        overlayGroups = c("National Marine Sanctuaries", "Shipping Lanes")
+      )
   })
   
 
