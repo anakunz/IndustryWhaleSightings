@@ -39,7 +39,7 @@ shinyServer(function(input, output, session) {
   
   
   # Create color palettes for each data view
-  species_pal <- colorFactor(pal = c("#0C6B02", "#94026D", "#00637C", "#63666A"), domain = c("Fin", "Humpback", "Blue", "Unidentified"))
+  species_pal <- colorFactor(pal = c("#00637C","#0C6B02", "#94026D", "#63666A"), domain = c("Humpback", "Blue", "Fin", "Unidentified"))
 
   company_pal <- colorFactor(pal = c("#c90076", "#c27ba0", "#6a329f", "#8e7cc3", "#16537e", "#6fa8dc", "#2986cc", "#76a5af", "#8fce00", "#38761d", "#ce7e00", "#f1c232", "#f44336", "#990000", "#744700"), domain = c("Evergreen", "K-Line", "MOL", "NYK", "MSC", "Maersk", "CMA CGM", "ONE", "Hapag Lloyd", "Matson", "Scot Gemi Isletmeciligi AS", "Eastern Pacific Shipping", "Wan Hai", "Andriaki Shipping Co", "APL"))
   
@@ -60,7 +60,8 @@ shinyServer(function(input, output, session) {
   observe({
     
     leafletProxy("map", data = spco_reactive) %>% 
-      clearMarkers() 
+      clearMarkers() %>% 
+      clearControls()
     
     proxy <- leafletProxy("map", data = spco_reactive)
     
@@ -73,7 +74,12 @@ shinyServer(function(input, output, session) {
                          color = ~company_pal(company),
                          radius = ~num_sighted,
                          popup = ~as.character(cntnt),
-                         stroke = FALSE, fillOpacity = 0.8)
+                         stroke = FALSE, fillOpacity = 0.8) %>% 
+        addLegend("bottomright",
+                  pal = company_pal,
+                  values = sightings_data$company,
+                  title = "Company",
+                  opacity = 1)
     } else {
       view_by <- "Species"
       proxy %>% 
@@ -81,12 +87,18 @@ shinyServer(function(input, output, session) {
                          color = ~species_pal(species),
                          radius = ~num_sighted,
                          popup = ~as.character(cntnt),
-                         stroke = FALSE, fillOpacity = 0.8)
+                         stroke = FALSE, fillOpacity = 0.8) %>% 
+        addLegend("bottomright",
+                  pal = species_pal,
+                  values = sightings_data$species,
+                  title = "Species",
+                  opacity = 1)
     }
     
     
   })
   
+
   # Create basemap
   
   output$map <- renderLeaflet({   
@@ -104,6 +116,7 @@ shinyServer(function(input, output, session) {
       addLayersControl(
         overlayGroups = c("National Marine Sanctuaries", "Vessel Traffic Separation Zones")
       )
+
   })
   
 
