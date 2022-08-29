@@ -95,14 +95,14 @@ shinyServer(function(input, output, session) {
       setView( lng = -119, lat = 38, zoom = 5) %>% 
       addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
-      addPolygons(data = ship_lanes, group = "Shipping Lanes", fillColor = "light teal", weight = 2, color = "blue") %>%
+      addPolygons(data = ship_lanes, group = "Vessel Traffic Separation Zones", fillColor = "light teal", weight = 2, color = "blue") %>%
       addPolygons(data = cbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = gfnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = ocnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       hideGroup("National Marine Sanctuaries") %>% 
-    hideGroup("Shipping Lanes") %>% 
+    hideGroup("Vessel Traffic Separation Zones") %>% 
       addLayersControl(
-        overlayGroups = c("National Marine Sanctuaries", "Shipping Lanes")
+        overlayGroups = c("National Marine Sanctuaries", "Vessel Traffic Separation Zones")
       )
   })
   
