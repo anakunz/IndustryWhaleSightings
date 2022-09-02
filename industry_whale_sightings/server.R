@@ -45,7 +45,11 @@ shinyServer(function(input, output, session) {
   
   ### Begin Interactive Map ####
   
+
+  
 # Reactivity expression for company, species, and year selection
+  
+ 
   
   spco_reactive <- reactive({ 
     sightings_data %>%
@@ -54,7 +58,25 @@ shinyServer(function(input, output, session) {
       filter(year %inrange% c(input$years))
   })
  
-  
+  observe({
+    if (input$selectall > 0) {
+      
+      if (input$selectall %% 2 == 0) {
+        updateCheckboxGroupInput(
+          session = session,
+          inputId = 'co_select',
+          label = NULL,
+          choices = unique(sightings_data$company),
+          selected = c(sightings_data$company))
+        
+      } else {
+        updateCheckboxGroupInput(session = session,
+                                 inputId = 'co_select',
+                                 label = NULL,
+                                 choices = unique(sightings_data$company),
+                                 selected = "")
+      }}
+  })
   #Create a reactive expression that returns either species or company view options
   
   observe({

@@ -64,14 +64,14 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                       fluidRow(column(6, offset = 0,
                                                       checkboxGroupInput("co_select", "Select Company:",
                                                                          choices = unique(sightings_data$company),
-                                                                         #selectize = FALSE,
-                                                                         selected = c(sightings_data$company))), #multiple = TRUE),
+                                                                         selected = c(sightings_data$company)),
+                                                      
+                                                      actionButton("selectall", label = "Select/Deselect All")),
+                                               
                                                column(6, offset = 0,
                                                       checkboxGroupInput("sp_select", "Select Species:",
                                                                   choices = unique(sightings_data$species),
-                                                                  #selectize = FALSE,
                                                                   selected = c(sightings_data$species)))),
-                                                                  #multiple = TRUE),
                                       
                                       sliderInput("years", "Year",
                                                   min = 2018, max = 2022, step = 1,
@@ -82,8 +82,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                    
                                       
                         ))),
-               tabPanel("Data", DT::dataTableOutput("data")),
-               tabPanel("About",includeMarkdown("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/About.Rmd"))
+               tabPanel("Data", DT::dataTableOutput("data")) #,
+             #  tabPanel("About",includeMarkdown("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/About.Rmd"))
               
 )
 ))
