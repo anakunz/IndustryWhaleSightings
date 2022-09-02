@@ -9,7 +9,6 @@ library(leaflet)
 library(tmap)
 library(shinythemes)
 library(sf)
-library(sp)
 library(shinyWidgets)
 library(rsconnect)
 
