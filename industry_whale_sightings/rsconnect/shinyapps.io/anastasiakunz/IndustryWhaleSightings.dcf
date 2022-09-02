@@ -1,0 +1,13 @@
+name: IndustryWhaleSightings
+title: IndustryWhaleSightings
+username:
+account: anastasiakunz
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6908651
+bundleId: 6263586
+url: https://anastasiakunz.shinyapps.io/industrywhalesightings/
+when: 1662140055.75481
+lastSyncTime: 1662140055.75483
+asMultiple: FALSE
+asStatic: FALSE

@@ -2,14 +2,16 @@
 # Shiny Server Page
 
 library(shiny)
-library(tidyverse)
 library(here)
 library(janitor)
+library(tidyverse)
+library(leaflet)
+library(tmap)
+library(shinythemes)
 library(sf)
 library(sp)
-library(tmap)
-library(DT)
-library(data.table)
+library(shinyWidgets)
+library(rsconnect)
 
 # Define server logic 
 shinyServer(function(input, output, session) {

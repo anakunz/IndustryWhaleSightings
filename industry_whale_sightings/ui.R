@@ -17,6 +17,7 @@ library(shinythemes)
 library(sf)
 library(sp)
 library(shinyWidgets)
+library(rsconnect)
 
 sightings_data <- read_csv(here("data","IndustrySightings_vsr.csv")) %>% 
   clean_names()
