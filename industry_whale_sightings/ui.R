@@ -42,8 +42,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                             
                             tags$head(
                               # Include our custom CSS
-                              tags$link(rel = "stylesheet", type = "text/css", href = "/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/styles.css"),
-                              includeCSS("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/styles.css")
+                              tags$link(rel = "stylesheet", type = "text/css", href =  here("styles.css")),
+                              includeCSS(here("styles.css"))
                             ),
                             
                         absolutePanel(id = "controls", class = "panel panel-default", fixed = TRUE,
