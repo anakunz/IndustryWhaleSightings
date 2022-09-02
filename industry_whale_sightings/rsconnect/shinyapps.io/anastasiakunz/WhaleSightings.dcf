@@ -5,9 +5,9 @@ account: anastasiakunz
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6909584
-bundleId: 6263946
+bundleId: 6264004
 url: https://anastasiakunz.shinyapps.io/WhaleSightings/
-when: 1662147667.21941
-lastSyncTime: 1662147667.21942
+when: 1662148933.0314
+lastSyncTime: 1662148933.03142
 asMultiple: FALSE
 asStatic: FALSE

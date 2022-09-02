@@ -2,11 +2,11 @@
 # Shiny Server Page
 
 library(shiny)
-library(here)
+#library(here)
 library(janitor)
 library(tidyverse)
 library(leaflet)
-library(tmap)
+#library(tmap)
 library(shinythemes)
 library(sf)
 library(shinyWidgets)
@@ -15,14 +15,14 @@ library(DT)
 library(rsconnect)
 
 # Load data
-sightings_data <- read_csv(here("industry_whale_sightings", "data","IndustrySightings_vsr.csv")) %>% 
+sightings_data <- read_csv("data/IndustrySightings_vsr.csv") %>% 
   clean_names()
-cinms <- read_sf(here("industry_whale_sightings",  "data", "cinms_py2", "cinms_py.shp"))
-mbnms <- read_sf(here("industry_whale_sightings",  "data", "mbnms_py2", "mbnms_py.shp"))
-cbnms <- read_sf(here("industry_whale_sightings",  "data", "cbnms_py2", "CBNMS_py.shp"))
-gfnms <- read_sf(here("industry_whale_sightings",  "data", "gfnms_py2", "GFNMS_py.shp"))
-ocnms <- read_sf(here("industry_whale_sightings",  "data", "ocnms_py2", "ocnms_py.shp"))
-ship_lanes <- read_sf(here("industry_whale_sightings",  "data", "shipping_lanes", "Offshore_Traffic_Separation.shp"))
+cinms <- read_sf("data/cinms_py2/cinms_py.shp")
+mbnms <- read_sf("data/mbnms_py2/mbnms_py.shp")
+cbnms <- read_sf("data/cbnms_py2/CBNMS_py.shp")
+gfnms <- read_sf("data/gfnms_py2/GFNMS_py.shp")
+ocnms <- read_sf("data/ocnms_py2/ocnms_py.shp")
+ship_lanes <- read_sf("data/shipping_lanes/Offshore_Traffic_Separation.shp")
 
 
 # Define server logic 
@@ -128,7 +128,7 @@ shinyServer(function(input, output, session) {
   output$map <- renderLeaflet({   
     leaflet() %>% 
       addTiles() %>%
-      setView( lng = -119, lat = 38, zoom = 5) %>% 
+      setView( lng = -119, lat = 36, zoom = 6) %>% 
       addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = ship_lanes, group = "Vessel Traffic Separation Zones", fillColor = "light teal", weight = 2, color = "blue") %>%
