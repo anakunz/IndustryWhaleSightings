@@ -27,9 +27,6 @@ ship_lanes <- read_sf(here("industry_whale_sightings",  "data", "shipping_lanes"
 
 # Define server logic 
 shinyServer(function(input, output, session) {
-
-  
-  
   
   
   # new column for the popup label
