@@ -10,6 +10,8 @@ library(tmap)
 library(shinythemes)
 library(sf)
 library(shinyWidgets)
+library(data.table)
+library(DT)
 library(rsconnect)
 
 # Define server logic 
@@ -19,14 +21,14 @@ shinyServer(function(input, output, session) {
   
   
   # Load data
-  sightings_data <- read_csv(here("industry_whale_sightings","data","IndustrySightings_vsr.csv")) %>% 
+  sightings_data <- read_csv(here("data","IndustrySightings_vsr.csv")) %>% 
     clean_names()
-  cinms <- read_sf(here("industry_whale_sightings", "data", "cinms_py2", "cinms_py.shp"))
-  mbnms <- read_sf(here("industry_whale_sightings", "data", "mbnms_py2", "mbnms_py.shp"))
-  cbnms <- read_sf(here("industry_whale_sightings", "data", "cbnms_py2", "CBNMS_py.shp"))
-  gfnms <- read_sf(here("industry_whale_sightings", "data", "gfnms_py2", "GFNMS_py.shp"))
-  ocnms <- read_sf(here("industry_whale_sightings", "data", "ocnms_py2", "ocnms_py.shp"))
-  ship_lanes <- read_sf(here("industry_whale_sightings", "data", "shipping_lanes", "Offshore_Traffic_Separation.shp"))
+  cinms <- read_sf(here( "data", "cinms_py2", "cinms_py.shp"))
+  mbnms <- read_sf(here( "data", "mbnms_py2", "mbnms_py.shp"))
+  cbnms <- read_sf(here( "data", "cbnms_py2", "CBNMS_py.shp"))
+  gfnms <- read_sf(here("data", "gfnms_py2", "GFNMS_py.shp"))
+  ocnms <- read_sf(here( "data", "ocnms_py2", "ocnms_py.shp"))
+  ship_lanes <- read_sf(here("data", "shipping_lanes", "Offshore_Traffic_Separation.shp"))
   
   # new column for the popup label
   

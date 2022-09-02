@@ -16,9 +16,11 @@ library(tmap)
 library(shinythemes)
 library(sf)
 library(shinyWidgets)
+library(data.table)
+library(DT)
 library(rsconnect)
 
-sightings_data <- read_csv(here("industry_whale_sightings","data","IndustrySightings_vsr.csv")) %>% 
+sightings_data <- read_csv(here("data","IndustrySightings_vsr.csv")) %>% 
   clean_names()
 
 # Define UI for application that draws a histogram
