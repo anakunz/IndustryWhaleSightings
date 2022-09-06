@@ -39,7 +39,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
 
     # Application title
     navbarPage("Maritime Shipping Whale Sightings", id="nav",
-               tabPanel(" Map", leafletOutput("map", height=875),
+               tabPanel(" Map", leafletOutput("map", height= 840),
                         icon = icon("map-location-dot"),
                         div(class="outer",
                             
@@ -78,7 +78,7 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                       
                                       sliderInput("years", "Year",
                                                   min = 2018, max = 2022, step = 1,
-                                                  value = c(2018,2022), sep = ""),
+                                                  value = c(2018, 2022), sep = ""),
                                     
                                      
                                       
@@ -87,8 +87,12 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                         ))),
                tabPanel("Data", 
                         icon = icon("pen-to-square"), 
-                        DT::dataTableOutput("data")) #,
+                        DT::dataTableOutput("data")) ,
              #  tabPanel("About",includeMarkdown("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/About.Rmd"))
-              
+ 
+             
+             
+             tags$div(id = "cite", 'For questions contact anastasia.kunz@noaa.gov. 2022.')             
 )
+
 ))
