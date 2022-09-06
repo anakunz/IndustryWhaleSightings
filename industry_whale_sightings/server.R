@@ -13,6 +13,7 @@ library(shinyWidgets)
 library(data.table)
 library(DT)
 library(rsconnect)
+library(leaflegend)
 
 # Load data
 sightings_data <- read_csv("data/IndustrySightings_vsr.csv") %>% 
@@ -116,7 +117,18 @@ shinyServer(function(input, output, session) {
                   pal = species_pal,
                   values = sightings_data$species,
                   title = "Species",
-                  opacity = 1)
+                  opacity = 1) #%>% 
+        
+       # addLegendSize(values = sightings_data$num_sighted,
+                      #color = "gray",
+                      #fillColor = "gray",
+                      #title = "Number Sighted",
+                      #opacity = .5,
+                      #shape = "circle",
+                      #orientation = "vertical",
+                      #position = "bottomleft"
+                      
+                  #)
     }
     
     

@@ -39,7 +39,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
 
     # Application title
     navbarPage("Maritime Shipping Whale Sightings", id="nav",
-               tabPanel("Map", leafletOutput("map", height=875),
+               tabPanel(" Map", leafletOutput("map", height=875),
+                        icon = icon("map-location-dot"),
                         div(class="outer",
                             
                             tags$head(
@@ -84,7 +85,9 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                    
                                       
                         ))),
-               tabPanel("Data", DT::dataTableOutput("data")) #,
+               tabPanel("Data", 
+                        icon = icon("pen-to-square"), 
+                        DT::dataTableOutput("data")) #,
              #  tabPanel("About",includeMarkdown("/Users/anastasia/Desktop/NOAA/CMSF/IndustryWhaleSightings/About.Rmd"))
               
 )
