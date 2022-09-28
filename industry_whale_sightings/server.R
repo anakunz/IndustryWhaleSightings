@@ -140,7 +140,7 @@ shinyServer(function(input, output, session) {
   output$map <- renderLeaflet({   
     leaflet() %>% 
       addTiles() %>%
-      setView( lng = -119, lat = 36, zoom = 6) %>% 
+      setView( lng = -120, lat = 36, zoom = 7) %>% 
       addPolygons(data = cinms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = mbnms, group = "National Marine Sanctuaries", fillColor = "darkcyan", weight = 2, color = "darkcyan") %>%
       addPolygons(data = ship_lanes, group = "Vessel Traffic Separation Zones", fillColor = "light teal", weight = 2, color = "blue") %>%
