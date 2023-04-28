@@ -77,8 +77,8 @@ shinyUI(fluidPage(theme = shinytheme("flatly"),
                                                                   selected = c(sightings_data$species)))),
                                       
                                       sliderInput("years", "Year",
-                                                  min = 2018, max = 2022, step = 1,
-                                                  value = c(2018, 2022), sep = ""),
+                                                  min = 2018, max = 2023, step = 1,
+                                                  value = c(2018, 2023), sep = ""),
                                     
                                      
                                       
