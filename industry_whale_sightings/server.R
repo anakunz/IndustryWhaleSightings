@@ -44,7 +44,7 @@ shinyServer(function(input, output, session) {
   # Create color palettes for each data view
   species_pal <- colorFactor(pal = c("#00637C","#0C6B02", "#94026D", "#63666A"), domain = c("Humpback", "Blue", "Fin", "Unidentified"))
 
-  company_pal <- colorFactor(pal = c("#c90076", "#c27ba0", "#6a329f", "#8e7cc3", "#16537e", "#6fa8dc", "#2986cc", "#76a5af", "#8fce00", "#38761d", "#ce7e00", "#f1c232", "#f44336", "#990000", "#744700"), domain = c("Evergreen", "K-Line", "MOL", "NYK", "MSC", "Maersk", "CMA CGM", "ONE", "Hapag Lloyd", "Matson", "Scot Gemi Isletmeciligi AS", "Eastern Pacific Shipping", "Wan Hai", "Andriaki Shipping Co", "APL"))
+  company_pal <- colorFactor(pal = c("#c90076", "#c27ba0", "#6a329f", "#8e7cc3", "#16537e", "#6fa8dc", "#2986cc", "#76a5af", "#8fce00", "#38761d", "#ce7e00", "#f1c232", "#f44336", "#990000", "#744700"), domain = c("Evergreen", "K-Line", "MOL", "NYK", "MSC", "Maersk", "CMA CGM", "ONE", "Hapag Lloyd", "Matson", "Puma Energy", "Eastern Pacific Shipping", "Wan Hai", "Andriaki Shipping Co", "APL"))
   
   ### Begin Interactive Map ####
   
