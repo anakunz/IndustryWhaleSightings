@@ -20,7 +20,7 @@ library(data.table)
 library(DT)
 library(rsconnect)
 
-sightings_data <- read_csv("data/IndustrySightings_vsr.csv") %>% 
+sightings_data <- read_csv("data/IndustrySightings_vsr_23.csv") %>% 
   clean_names()
 
 # Define UI for application that draws a histogram
